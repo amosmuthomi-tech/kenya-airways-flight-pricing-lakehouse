@@ -1,0 +1,7 @@
+*.duckdb
+__pycache__/
+.pytest_cache/
+data/raw/*.csv
+target/
+logs/
+spark-warehouse/

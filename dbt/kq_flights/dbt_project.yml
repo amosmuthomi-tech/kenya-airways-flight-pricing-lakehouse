@@ -1,0 +1,36 @@
+name: 'kq_flights'
+version: '1.0.0'
+config-version: 2
+
+profile: 'kq_flights'
+
+model-paths: ["models"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+
+vars:
+  silver_valid_path: "{{ env_var('SILVER_VALID_PATH', '../../data/silver/valid') }}"
+  silver_rejected_path: "{{ env_var('SILVER_REJECTED_PATH', '../../data/silver/rejected') }}"
+
+models:
+  kq_flights:
+    staging:
+      +materialized: view
+      +schema: staging
+    intermediate:
+      +materialized: view
+      +schema: intermediate
+    marts:
+      core:
+        +materialized: table
+        +schema: core
+      gold:
+        +materialized: table
+        +schema: gold
+      audit:
+        +materialized: table
+        +schema: audit

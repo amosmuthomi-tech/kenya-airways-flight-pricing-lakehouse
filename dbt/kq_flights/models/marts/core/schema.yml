@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: dim_airline
+    description: One row per airline, with a service-tier classification.
+    columns:
+      - name: airline_code
+        tests: [not_null, unique]
+
+  - name: dim_route
+    description: One row per source/destination city pair.
+    columns:
+      - name: route_key
+        tests: [not_null, unique]
+
+  - name: fct_flight_price_quotes
+    description: >
+      Core fact table. Grain: one row per fare quote per snapshot.
+      Natural key is (source_row_index, snapshot_date) -- see model SQL
+      header for the full grain statement.
+    columns:
+      - name: quote_id
+        description: "Surrogate key: source_row_index || '|' || snapshot_date. Enforces the fact table's natural-key grain."
+        tests: [not_null, unique]
+      - name: source_row_index
+        tests: [not_null]
+      - name: snapshot_date
+        tests: [not_null]
+      - name: airline_code
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_airline')
+              field: airline_code
+      - name: route_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_route')
+              field: route_key
+      - name: price_inr
+        tests: [not_null]

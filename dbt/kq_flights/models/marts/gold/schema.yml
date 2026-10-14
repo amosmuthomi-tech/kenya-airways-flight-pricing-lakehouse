@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: mart_airline_market_share
+    description: "Quote volume and share % by airline within each cabin class. See model SQL header for the business question."
+  - name: mart_route_price_trends
+    description: "Average/min/max fare by route, cabin class, and booking-window bucket. See model SQL header for the business question."
+  - name: mart_daily_snapshot_summary
+    description: "Per-snapshot volume, valid/rejected split, and average price. See model SQL header for the business question."
+  - name: mart_cabin_class_performance
+    description: "Average price, duration, and price-per-hour by cabin class and stop count. See model SQL header for the business question."

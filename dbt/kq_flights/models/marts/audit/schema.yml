@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: rejected_flight_price_quotes
+    description: >
+      Every fare quote Silver rejected, with original raw values and
+      the full list of rejection reasons. Grain: one row per rejected
+      quote per snapshot.
+    columns:
+      - name: source_row_index
+        tests: [not_null]
+      - name: reject_reason_count
+        tests: [not_null]

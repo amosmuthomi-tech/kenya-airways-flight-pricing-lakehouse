@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: int_flight_price_quotes_enriched
+    description: >
+      Valid fare quotes enriched with a route key, a price-per-hour
+      metric, and a booking-window bucket derived from days_left. Grain
+      matches stg_flight_price_quotes: one row per quote per snapshot.
+    columns:
+      - name: route_key
+        description: "source_city + destination_city, e.g. Delhi_Mumbai."
+        tests: [not_null]
+      - name: booking_window_bucket
+        tests:
+          - accepted_values:
+              values: ['0-7_days', '8-14_days', '15-30_days', '31-365_days']

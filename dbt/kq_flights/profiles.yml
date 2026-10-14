@@ -1,0 +1,11 @@
+# Local dev/test profile only. Model SQL is standard ANSI/Redshift-
+# compatible SQL; swapping this profile for a redshift/postgres target
+# adapter is the only change needed to run the same models against a
+# real warehouse (see redshift/README.md).
+kq_flights:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: 'kq_flights_dev.duckdb'
+      threads: 4
